@@ -11,19 +11,43 @@ A Streamlit web application for calculating unique users with saturation modelin
 
 ## Local Development
 
+This project uses `uv` for fast Python package management. If you don't have `uv` installed:
+
+```bash
+# Install uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+# Or with pip
+pip install uv
+```
+
 ### Prerequisites
 - Python 3.11+
+- [uv](https://docs.astral.sh/uv/) (recommended) or pip
 - Docker (optional)
 
 ### Running Locally
 
-1. Install dependencies:
+1. Copy the environment file (optional):
+```bash
+cp .env.example .env
+```
+
+2. Install dependencies using uv (recommended):
+```bash
+uv sync
+```
+
+Or using pip:
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Run the Streamlit app:
+3. Run the Streamlit app:
 ```bash
+# With uv
+uv run streamlit run unique_users_app.py
+
+# Or with pip
 streamlit run unique_users_app.py
 ```
 
