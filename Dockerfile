@@ -1,20 +1,16 @@
-FROM python:3.11-slim
-
-# Install uv (fast Python package installer)
+# Stage 1: Install dependencies using uv
+FROM python:3.11-alpine AS builder
+RUN apk add --no-cache gcc musl-dev libffi-dev
 RUN pip install uv
-
-# Set workdir
 WORKDIR /app
-
-# Copy requirements and install
 COPY requirements.txt .
 RUN uv pip install --system -r requirements.txt
 
-# Copy the app code
+# Stage 2: Final slim image
+FROM python:3.11-alpine
+WORKDIR /app
+COPY --from=builder /usr/local /usr/local
 COPY unique_users_app.py .
-
-# Expose Streamlit port
-EXPOSE 8501
-
-# Run Streamlit
-CMD ["streamlit", "run", "unique_users_app.py", "--server.address=0.0.0.0", "--server.port=8501"]
+EXPOSE 8080
+ENV PORT=8080
+CMD streamlit run unique_users_app.py --server.address=0.0.0.0 --server.port=$PORT --server.headless=true --server.enableCORS=false --server.enableXsrfProtection=false
