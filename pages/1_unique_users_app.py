@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(page_title="Unique Users Estimator", page_icon="📊", layout="wide")
+st.set_page_config(page_title="Unique Users Graph", page_icon="📈", layout="wide")
 
 st.title("📊 מחשבון משתמשים ייחודיים + גרף הצטברות עם רוויה")
 
@@ -43,7 +43,6 @@ with col2:
     st.markdown("### 📈 גרף הצטברות")
     st.line_chart(df.set_index("שניות"))
 
-# Show results under both columns
 st.markdown("---")
 st.subheader("🔍 תוצאה")
 st.write(f"**משתמשים בו־זמניים משוערים:** {concurrent_users:,.0f}")
